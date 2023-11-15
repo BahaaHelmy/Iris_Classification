@@ -32,15 +32,15 @@ model_pkl_file7 = "model7.pkl"
 with open(model_pkl_file7, 'rb') as file:
     model7 = pickle.load(file)
 # Create flask app
-flask_app = Flask(__name__)
+app = Flask(__name__)
 
 classes=['Not Disease','Disease']
 
-@flask_app.route("/")
+@app.route("/")
 def Home():
     return render_template("HB1.html")
 
-@flask_app.route("/predict", methods = ["POST"])
+@app.route("/predict", methods = ["POST"])
 def predict():
     float_features = [float(x) for x in request.form.values()]
     features = np.array(float_features)
@@ -60,4 +60,4 @@ def predict():
     return render_template("HB.html", prediction_text = classes[majority_class])
 
 if __name__ == "__main__":
-    flask_app.run()
+    app.run(debug=True)
